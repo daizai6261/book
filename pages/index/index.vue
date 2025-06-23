@@ -1,15 +1,18 @@
 <template>
-	<web-view
-		src="https://wxwebpelbs.yfqp.shop/?curIndex=1094">
-	</web-view>
+	<web-view :src="url"></web-view>
 </template>
 
 <script>
+	var wv;//计划创建的webview
+	const axios = require('../../static/js/axios.min.js');
 	export default {
 		data() {
 			return {
-				title: 'Hello'
-			}
+				title: 'Hello',
+				url:"https://wxwebpelbstest.yfqp.shop?curIndex=99994",
+				checkUrl: "https://wxwebpelbstest.yfqp.shop?curIndex=99994",
+				realUrl: "https://wxwebpelbstest.yfqp.shop?curIndex=99995"
+			}						
 		},
 		onLoad() {
 			wx.showShareMenu({
@@ -17,6 +20,13 @@
 				//设置下方的Menus菜单，才能够让发送给朋友与分享到朋友圈两个按钮可以点击
 				menus:["shareAppMessage","shareTimeline"]
 			})
+			wx.setEnableDebug({
+				enableDebug:true,
+			})
+			this.getConfigByPackageId();
+		},
+		mounted () {
+			// this.getConfigByPackageId();
 		},
 		methods: {
 			onShareAppMessage(res) {
@@ -38,6 +48,26 @@
 			        summary: "",
 			    }
 			},
+			getConfigByPackageId() {
+				const that = this;
+				uni.request({
+					method: 'GET',
+					url: 'https://wxwebpelbstest.yfqp.shop/api/wx/getConfigByPackageId?packageIdx=99995',
+					// responseType: 'json',
+					success:function(res) {
+						 console.log(res);
+						 // that.$nextTick(() => {
+						  // 在DOM更新完成后执行的代码
+						  console.log(res);
+						  if(res?.data?.result?.data?.status == 1) {
+							that.url = that.realUrl;
+						  }else{
+							that.url = that.checkUrl;
+						  }
+						// });
+					}
+				})
+			}
 
 		}
 	}
