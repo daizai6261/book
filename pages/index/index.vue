@@ -11,7 +11,7 @@
 				title: 'Hello',
 				url:"https://wxwebpelbstest.yfqp.shop?curIndex=99994",
 				checkUrl: "https://wxwebpelbstest.yfqp.shop?curIndex=99994",
-				realUrl: "https://wxwebpelbstest.yfqp.shop?curIndex=99995"
+				realUrl: "https://wxwebpelbs.yfqp.shop?curIndex=99995"
 			}						
 		},
 		onLoad() {
